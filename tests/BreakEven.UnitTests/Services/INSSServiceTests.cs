@@ -8,6 +8,7 @@ using Xunit;
 public class INSSServiceTests
 {
     private readonly INSSService SUT = new();
+
     [Fact]
     public void Compute_WhenGivenInvalidSalary_ThrowsNegativeSalaryException()
     {
