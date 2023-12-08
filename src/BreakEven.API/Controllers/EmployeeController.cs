@@ -1,3 +1,4 @@
+using BreakEven.API.Exceptions;
 using BreakEven.API.Helpers;
 using BreakEven.API.Interfaces.Repositories;
 using BreakEven.API.Interfaces.Services;
@@ -34,7 +35,7 @@ public class EmployeeController : ControllerBase
         {
             var employee =  repo.GetByCpf(cpf);
             if (employee == null)
-                return NotFound("Employee not found");
+                return NotFound(new { Error = "Employee not found" });
             return Ok(employee);
         }
         catch (Exception e)
@@ -52,7 +53,7 @@ public class EmployeeController : ControllerBase
         {
             var employee =  repo.GetByCpf(cpf);
             if (employee == null)
-                return NotFound("Employee not found");
+                return NotFound(new { Error = "Employee not found" });
 
             var paycheck = paycheckService.GeneratePaycheck(employee);
                
@@ -80,11 +81,15 @@ public class EmployeeController : ControllerBase
             var dbEmployee = repo.GetByCpf(employeeVm.CPF);
             if (dbEmployee != null)
                 return BadRequest(new { Error = "User already exists" });
-                
+
             var employee = employeeVm.ToDomain();
             repo.Create(employee);
-           
-            return Created(nameof(Get),new {Id = employee.CPF});
+
+            return Created(nameof(Get), new { Id = employee.CPF });
+        }
+        catch (NegativeSalaryException e)
+        {
+            return BadRequest(new { Error = e.Message });            
         }
         catch (Exception e)
         {
