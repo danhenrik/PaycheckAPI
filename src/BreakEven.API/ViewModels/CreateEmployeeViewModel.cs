@@ -27,10 +27,10 @@ public class CreateEmployeeViewModel
     public bool HasHealthInsurance { get; init; }
 
     [Required]
-    public bool HasDentalInsurance { get; set; }
+    public bool HasDentalInsurance { get; init; }
 
     [Required]
-    public bool HasTransportationAllowance { get; set; }
+    public bool HasTransportationAllowance { get; init; }
 
     public Employee ToDomain()
     {
