@@ -94,7 +94,7 @@ public class EmployeeControllerTests
             .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
             .Returns(_employee);
 
-        var  result = _controller.GetById("id", _repoMock.Object);
+        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
             
         var response = Assert.IsType<OkObjectResult>(result);
         var employeesRes = Assert.IsType<Employee>(response.Value);
@@ -108,7 +108,7 @@ public class EmployeeControllerTests
             .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
             .Returns((Employee)null!);
 
-        var  result = _controller.GetById("id", _repoMock.Object);
+        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
             
         Assert.IsType<NotFoundObjectResult>(result);
     }
@@ -120,7 +120,7 @@ public class EmployeeControllerTests
             .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
             .Throws(new Exception());
 
-        var  result = _controller.GetById("id", _repoMock.Object);
+        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
             
         Assert.IsType<StatusCodeResult>(result);
     }
@@ -189,7 +189,7 @@ public class EmployeeControllerTests
             .Setup(x => x.GeneratePaycheck(It.IsAny<Employee>()))
             .Returns(paycheck);
         
-        var result = _controller.GetPaycheck("id", _repoMock.Object, paycheckServiceMock.Object);
+        var result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
 
         var response = Assert.IsType<OkObjectResult>(result);
         var paycheckRes = Assert.IsType<PaycheckVm>(response.Value);
@@ -204,7 +204,7 @@ public class EmployeeControllerTests
             .Returns((Employee)null!);
         var paycheckServiceMock = new Mock<IPaycheckService>();
 
-        var  result = _controller.GetPaycheck("id", _repoMock.Object, paycheckServiceMock.Object);
+        var  result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
             
         Assert.IsType<NotFoundObjectResult>(result);
     }
@@ -217,7 +217,7 @@ public class EmployeeControllerTests
             .Throws(new Exception());
         var paycheckServiceMock = new Mock<IPaycheckService>();
 
-        var result = _controller.GetPaycheck("id", _repoMock.Object, paycheckServiceMock.Object);
+        var result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
             
         Assert.IsType<StatusCodeResult>(result);
     }
