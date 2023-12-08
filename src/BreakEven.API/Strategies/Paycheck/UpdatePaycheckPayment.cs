@@ -6,6 +6,7 @@ using BreakEven.API.Entities;
 public class UpdatePaycheckPayment : IUpdatePaycheckStrategy
 {
     public double Amount { get; init; }
+
     public  void UpdatePaycheck(Paycheck paycheck)
     {
         paycheck.Pay(Amount);
