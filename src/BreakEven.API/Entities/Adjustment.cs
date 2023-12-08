@@ -1,3 +1,4 @@
+using BreakEven.API.Entities.Enums;
 using BreakEven.API.Interfaces.Strategies.Paycheck;
 using BreakEven.API.Strategies.Paycheck;
 

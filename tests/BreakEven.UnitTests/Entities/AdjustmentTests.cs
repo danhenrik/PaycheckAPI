@@ -1,5 +1,6 @@
 namespace BreakEven.UnitTests.Entities;
 
+using BreakEven.API.Entities.Enums;
 using BreakEven.API.Entities;
 using BreakEven.API.Strategies.Paycheck;
 using System;

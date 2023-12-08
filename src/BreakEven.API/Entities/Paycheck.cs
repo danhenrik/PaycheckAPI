@@ -1,3 +1,5 @@
+using BreakEven.API.Entities.Enums;
+
 namespace BreakEven.API.Entities;
 
 public class Paycheck

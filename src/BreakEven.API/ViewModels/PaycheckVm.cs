@@ -1,4 +1,5 @@
 using BreakEven.API.Entities;
+using BreakEven.API.Entities.Enums;
 
 namespace BreakEven.API.ViewModels;
 

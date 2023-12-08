@@ -1,4 +1,5 @@
 using BreakEven.API.Entities;
+using BreakEven.API.Entities.Enums;
 using BreakEven.API.Interfaces.Services;
 
 namespace BreakEven.API.Services;
