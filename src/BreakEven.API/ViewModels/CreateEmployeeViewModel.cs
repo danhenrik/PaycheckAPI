@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BreakEven.API.ViewModels;
 
-public class CreateEmployeeVm
+public class CreateEmployeeViewModel
 {
     [Required]
     public string CPF { get; init; }

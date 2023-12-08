@@ -17,7 +17,7 @@ public class EmployeeControllerTests
     
     private readonly Mock<IEmployeeRepository> _repoMock = new();
 
-    private readonly CreateEmployeeVm _employeeVm = new()
+    private readonly CreateEmployeeViewModel _employeeViewModel = new()
     {
         CPF = "12345678900",
         FirstName = "Test",
@@ -134,20 +134,20 @@ public class EmployeeControllerTests
             .Setup(repo => repo.Create(It.IsAny<Employee>()))
             .Returns(Task.CompletedTask);
         
-        var  result = _controller.Post(_employeeVm, _repoMock.Object);
+        var  result = _controller.Post(_employeeViewModel, _repoMock.Object);
             
         var obj = Assert.IsType<CreatedResult>(result).Value;
         var id = obj
             .GetType()
             .GetProperty("Id")
             .GetValue(obj);
-        Assert.Equal(_employeeVm.CPF, id);
+        Assert.Equal(_employeeViewModel.CPF, id);
     }
 
     [Fact]
     public void Post_IfPayloadIsInvalid_ReturnsError()
     {
-        var  result = _controller.Post(new CreateEmployeeVm() {CPF = "abcdefghijkl"}, _repoMock.Object);
+        var  result = _controller.Post(new CreateEmployeeViewModel() {CPF = "abcdefghijkl"}, _repoMock.Object);
             
         Assert.IsType<BadRequestObjectResult>(result);
     }
@@ -159,7 +159,7 @@ public class EmployeeControllerTests
             .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
             .Returns(_employee);
 
-        var  result = _controller.Post(_employeeVm, _repoMock.Object);
+        var  result = _controller.Post(_employeeViewModel, _repoMock.Object);
             
         Assert.IsType<BadRequestObjectResult>(result);
     }
@@ -171,7 +171,7 @@ public class EmployeeControllerTests
             .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
             .Throws(new Exception());
 
-        var  result = _controller.Post(_employeeVm, _repoMock.Object);
+        var  result = _controller.Post(_employeeViewModel, _repoMock.Object);
             
         Assert.IsType<StatusCodeResult>(result);
     }
@@ -191,8 +191,8 @@ public class EmployeeControllerTests
         var result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
 
         var response = Assert.IsType<OkObjectResult>(result);
-        var paycheckRes = Assert.IsType<PaycheckVm>(response.Value);
-        Assert.Equivalent(paycheckRes, PaycheckVm.FromDomain(paycheck));
+        var paycheckRes = Assert.IsType<PaycheckViewModel>(response.Value);
+        Assert.Equivalent(paycheckRes, PaycheckViewModel.FromDomain(paycheck));
     }
     
     [Fact]

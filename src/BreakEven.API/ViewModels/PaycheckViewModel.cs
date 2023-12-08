@@ -21,7 +21,7 @@ public class AdjustmentVm
     }
 }
 
-public class PaycheckVm
+public class PaycheckViewModel
 {
     public string Month { get; set; } // MM/YYYY
     public List<AdjustmentVm> Adjustments { get; set; }
@@ -30,9 +30,9 @@ public class PaycheckVm
     public string NetSalary { get; set; }
     public int Discounts { get; set; }
 
-    public static PaycheckVm FromDomain(Paycheck paycheck)
+    public static PaycheckViewModel FromDomain(Paycheck paycheck)
     {
-        var paycheckVm = new PaycheckVm()
+        var paycheckVm = new PaycheckViewModel()
         {
             GrossSalary = $"R$ {paycheck.GrossSalary:n2}",
             NetSalary = $"R$ {paycheck.NetSalary:n2}",

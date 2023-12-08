@@ -57,7 +57,7 @@ public class EmployeeController : ControllerBase
 
             var paycheck = paycheckService.GeneratePaycheck(employee);
                
-            var result = PaycheckVm.FromDomain(paycheck);
+            var result = PaycheckViewModel.FromDomain(paycheck);
             return Ok(result);
         }
         catch (Exception e)
@@ -69,20 +69,20 @@ public class EmployeeController : ControllerBase
         
     // POST api/employee
     [HttpPost]
-    public  IActionResult  Post([FromBody] CreateEmployeeVm employeeVm, [FromServices] IEmployeeRepository repo)
+    public  IActionResult  Post([FromBody] CreateEmployeeViewModel employeeViewModel, [FromServices] IEmployeeRepository repo)
     {
         try
         {
             var validator = new EmployeeValidator();
-            var validationResult = validator.Validate(employeeVm);
+            var validationResult = validator.Validate(employeeViewModel);
             if (!validationResult.IsValid)
                 return BadRequest(new { Error = validationResult.Errors[0].ErrorMessage });
 
-            var dbEmployee = repo.GetByCpf(employeeVm.CPF);
+            var dbEmployee = repo.GetByCpf(employeeViewModel.CPF);
             if (dbEmployee != null)
                 return BadRequest(new { Error = "User already exists" });
 
-            var employee = employeeVm.ToDomain();
+            var employee = employeeViewModel.ToDomain();
             repo.Create(employee);
 
             return Created(nameof(Get), new { Id = employee.CPF });

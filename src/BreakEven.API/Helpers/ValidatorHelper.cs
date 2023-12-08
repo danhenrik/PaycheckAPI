@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BreakEven.API.Helpers;
 
-public class EmployeeValidator : AbstractValidator<CreateEmployeeVm>
+public class EmployeeValidator : AbstractValidator<CreateEmployeeViewModel>
 {
     public EmployeeValidator()
     {
