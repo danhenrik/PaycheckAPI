@@ -18,6 +18,7 @@ public class Adjustment
             AdjustmentType.Pay => new UpdatePaycheckPayment() { Amount = Amount },
             _ => throw new ArgumentOutOfRangeException()
         };
+
         return strategy;
     }
 }
