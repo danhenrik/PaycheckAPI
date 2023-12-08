@@ -1,7 +1,6 @@
-using BreakEven.API.Interfaces.Services;
-
 namespace BreakEven.UnitTests.Controllers;
 
+using BreakEven.API.Interfaces.Services;
 using BreakEven.API.Controllers;
 using BreakEven.API.Entities;
 using BreakEven.API.Interfaces.Repositories;
