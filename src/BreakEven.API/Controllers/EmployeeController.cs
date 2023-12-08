@@ -26,13 +26,13 @@ public class EmployeeController : ControllerBase
         }
     }
 
-    // GET: api/employee/:id
-    [HttpGet("{id}")]
-    public IActionResult GetById(string id, [FromServices] IEmployeeRepository repo)
+    // GET: api/employee/:cpf
+    [HttpGet("{cpf}")]
+    public IActionResult GetByCpf(string cpf, [FromServices] IEmployeeRepository repo)
     {
         try
         {
-            var employee =  repo.GetByCpf(id);
+            var employee =  repo.GetByCpf(cpf);
             if (employee == null)
                 return NotFound("Employee not found");
             return Ok(employee);
@@ -44,13 +44,13 @@ public class EmployeeController : ControllerBase
         }
     }
 
-    // GET: api/employee/:id/paycheck
-    [HttpGet("{id}/paycheck")]
-    public IActionResult GetPaycheck(string id, [FromServices] IEmployeeRepository repo, [FromServices] IPaycheckService paycheckService)
+    // GET: api/employee/:cpf/paycheck
+    [HttpGet("{cpf}/paycheck")]
+    public IActionResult GetPaycheck(string cpf, [FromServices] IEmployeeRepository repo, [FromServices] IPaycheckService paycheckService)
     {
         try
         {
-            var employee =  repo.GetByCpf(id);
+            var employee =  repo.GetByCpf(cpf);
             if (employee == null)
                 return NotFound("Employee not found");
 
