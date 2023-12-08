@@ -16,7 +16,7 @@ public class EmployeeRepository(AppDbContext db) : IEmployeeRepository
 
     public Employee? GetByCpf(string cpf)
     {
-        return  db.Employees.FirstOrDefault(emp => emp!.CPF == cpf);
+        return db.Employees.FirstOrDefault(emp => emp!.CPF == cpf);
     }
 
     public List<Employee> GetAll()
