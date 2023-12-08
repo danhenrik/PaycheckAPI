@@ -17,7 +17,7 @@ public class PaycheckService(
         var paycheck = new Paycheck()
         {
             GrossSalary = GrossSalary, 
-            Month = DateTime.Now.Month + "/" + DateTime.Now.Year
+            Month = DateTime.Now.ToString("MM/yyyy")
         };
         
         var IRRFAmount = _irrfService.Compute(GrossSalary);
