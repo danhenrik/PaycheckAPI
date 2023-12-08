@@ -4,7 +4,7 @@ using BreakEven.API.Shared;
 
 namespace BreakEven.API.Services;
 
-public class INSSService: IINSSService
+public class INSSService : IINSSService
 {
     private enum SalaryLevel
     {
