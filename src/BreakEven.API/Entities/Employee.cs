@@ -1,4 +1,3 @@
-using BreakEven.API.Interfaces.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace BreakEven.API.Entities;
@@ -6,21 +5,21 @@ namespace BreakEven.API.Entities;
 public class Employee
 {
     [Key]
-    public string CPF { get; set;  }
+    public string CPF { get; init;  }
     
-    public string FirstName { get; set; }
+    public string FirstName { get; init; }
     
-    public string SurName { get; set; }
+    public string SurName { get; init; }
     
-    public string Sector { get; set; } 
+    public string Sector { get; init; } 
     
-    public double GrossSalary { get; set; }
+    public double GrossSalary { get; init; }
     
-    public DateTime AdmissionDate { get; set; }
+    public DateTime AdmissionDate { get; init; }
     
-    public bool HasHealthInsurance { get; set; }
+    public bool HasHealthInsurance { get; init; }
     
-    public bool HasDentalInsurance { get; set; }
+    public bool HasDentalInsurance { get; init; }
     
-    public bool HasTransportationAllowance { get; set; }
+    public bool HasTransportationAllowance { get; init; }
 }

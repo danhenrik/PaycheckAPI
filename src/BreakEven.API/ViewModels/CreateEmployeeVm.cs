@@ -6,25 +6,25 @@ namespace BreakEven.API.ViewModels;
 public class CreateEmployeeVm
 {
     [Required]
-    public string CPF { get; set; }
+    public string CPF { get; init; }
 
     [Required]
-    public string FirstName { get; set; }
+    public string FirstName { get; init; }
 
     [Required]
-    public string SurName { get; set; }
+    public string SurName { get; init; }
 
     [Required]
-    public string Sector { get; set; } // could possibly be swapped for a enum
+    public string Sector { get; init; }
 
     [Required]
-    public double GrossSalary { get; set; }
+    public double GrossSalary { get; init; }
 
     [Required]
-    public DateTime AdmissionDate { get; set; }
+    public DateTime AdmissionDate { get; init; }
 
     [Required]
-    public bool HasHealthInsurance { get; set; }
+    public bool HasHealthInsurance { get; init; }
 
     [Required]
     public bool HasDentalInsurance { get; set; }
