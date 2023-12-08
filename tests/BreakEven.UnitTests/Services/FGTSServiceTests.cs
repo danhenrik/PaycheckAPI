@@ -1,7 +1,7 @@
 namespace BreakEven.UnitTests.Services;
 
 using BreakEven.API.Services;
-using System;
+using BreakEven.API.Exceptions;
 using Xunit;
 
 public class FGTSServiceTests
@@ -20,10 +20,10 @@ public class FGTSServiceTests
     }
 
     [Fact]
-    public void Compute_WhenGivenInvalidSalary_ThrowsArgumentException()
+    public void Compute_WhenGivenInvalidSalary_ThrowsNegativeSalaryException()
     {
         const int salary = -1000;
 
-        Assert.Throws<ArgumentException>(() => SUT.Compute(salary));
+        Assert.Throws<NegativeSalaryException>(() => SUT.Compute(salary));
     }
 }

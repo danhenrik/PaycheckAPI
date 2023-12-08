@@ -1,5 +1,6 @@
 namespace BreakEven.UnitTests.Services;
 
+using BreakEven.API.Exceptions;
 using BreakEven.API.Services;
 using System;
 using Xunit;
@@ -8,11 +9,11 @@ public class INSSServiceTests
 {
     private readonly INSSService SUT = new();
     [Fact]
-    public void Compute_WhenGivenInvalidSalary_ThrowsArgumentException()
+    public void Compute_WhenGivenInvalidSalary_ThrowsNegativeSalaryException()
     {
         const int salary = -1000;
 
-        Assert.Throws<ArgumentException>(() => SUT.Compute(salary));
+        Assert.Throws<NegativeSalaryException>(() => SUT.Compute(salary));
     }
     
     [Theory]

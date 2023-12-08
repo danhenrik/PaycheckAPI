@@ -1,3 +1,4 @@
+using BreakEven.API.Exceptions;
 using BreakEven.API.Interfaces.Services;
 using BreakEven.API.Shared;
 
@@ -26,7 +27,7 @@ public class IRRFService: IIRRFService
     public double Compute(double grossSalary)
     {
         if (grossSalary < 0)
-            throw new ArgumentException("Salary cannot be less than 0", nameof(grossSalary));
+            throw new NegativeSalaryException();
 
         foreach (var level in LevelInfo.Keys)
         {
