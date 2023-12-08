@@ -2,7 +2,7 @@ using BreakEven.API.Interfaces.Services;
 
 namespace BreakEven.API.Services;
 
-public class FGTSService: IFGTSService
+public class FGTSService : IFGTSService
 {
     public double Compute(double grossSalary)
     {
