@@ -48,7 +48,6 @@ builder.Services.AddScoped<IFGTSService, FGTSService>();
 builder.Services.AddScoped<ITransportationAllowanceService, TransportationAllowanceService>();
 builder.Services.AddScoped<IPaycheckService, PaycheckService>();
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
