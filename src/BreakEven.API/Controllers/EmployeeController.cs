@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BreakEven.API.Controllers;
 
-[Route("api/employee")]
+[Route("api/employees")]
 [ApiController]
 public class EmployeeController : ControllerBase
 {
