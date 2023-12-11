@@ -1,29 +1,29 @@
 @BreakEven_HostAddress = http://localhost:8080
 
-GET {{BreakEven_HostAddress}}/api/employee
+GET {{BreakEven_HostAddress}}/api/employees
 Accept: application/json
 ###
 
-GET {{BreakEven_HostAddress}}/api/employee/12345678910
+GET {{BreakEven_HostAddress}}/api/employees/12345678911
 Accept: application/json
 ###
 
-POST {{BreakEven_HostAddress}}/api/employee
+POST {{BreakEven_HostAddress}}/api/employees
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "Junior",
-  "surName": "Teste",
-  "cpf": "12345678910",
-  "sector": "Management",
-  "grossSalary": 20000,
-  "admissionDate": "2023-11-29T15:02:23.408Z",
+  "firstName": "Test",
+  "surName": "Employee",
+  "cpf": "12345678911",
+  "sector": "Engineering",
+  "grossSalary": 2000,
+  "admissionDate": "2023-12-11T15:00:00.000Z",
   "hasHealthInsurance": true,
   "hasDentalInsurance": true,
   "hasTransportationAllowance": true
 }
 ###
 
-GET {{BreakEven_HostAddress}}/api/employee/12345678910/paycheck
+GET {{BreakEven_HostAddress}}/api/employees/12345678911/paycheck
 Accept: application/json
