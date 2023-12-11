@@ -1,14 +1,35 @@
+using BreakEven.API.Interfaces.Configuration;
+using BreakEven.API.Shared;
+
 namespace BreakEven.UnitTests.Services;
 
 using BreakEven.API.Exceptions;
 using BreakEven.API.Services;
-using System;
 using Xunit;
+using Moq;
 
 public class INSSServiceTests
 {
-    private readonly INSSService SUT = new();
+    private readonly INSSService SUT;
 
+    public INSSServiceTests()
+    {
+        var inssInfo = new List<DiscountInfo>()
+        {
+            new DiscountInfo() { DiscountRate = 0.075, MaxValue = 1500 },
+            new DiscountInfo() { DiscountRate = 0.09, MaxValue = 2500 },
+            new DiscountInfo() { DiscountRate = 0.12, MaxValue = 3500 },
+            new DiscountInfo() { DiscountRate = 0.14, MaxValue = 6100 },
+            new DiscountInfo() { DiscountRate = 0.17, MaxValue = 0 }
+        };
+        Mock<IParameterConfiguration> configurationMock = new();
+        configurationMock
+            .Setup(x => x.GetINSSDiscounts())
+            .Returns(inssInfo);
+        
+        SUT = new INSSService(configurationMock.Object);
+    }
+    
     [Fact]
     public void Compute_WhenGivenInvalidSalary_ThrowsNegativeSalaryException()
     {

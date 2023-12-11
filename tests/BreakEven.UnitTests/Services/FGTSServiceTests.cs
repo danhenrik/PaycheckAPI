@@ -1,12 +1,26 @@
+
+using BreakEven.API.Interfaces.Configuration;
+
 namespace BreakEven.UnitTests.Services;
 
 using BreakEven.API.Services;
 using BreakEven.API.Exceptions;
 using Xunit;
+using Moq;
 
 public class FGTSServiceTests
 {
-    private readonly FGTSService SUT = new();
+    private readonly FGTSService SUT;
+
+    public FGTSServiceTests()
+    {
+        Mock<IParameterConfiguration> configurationMock = new();
+        configurationMock
+            .Setup(x => x.GetFGTSDiscountRate())
+            .Returns(0.08);
+
+        SUT = new FGTSService(configurationMock.Object);
+    }
     
     [Fact]
     public void Compute_WhenGivenValidSalary_ReturnsComputation()
