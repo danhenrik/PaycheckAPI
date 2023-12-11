@@ -1,4 +1,6 @@
+using BreakEven.API.Configuration;
 using BreakEven.API.Data;
+using BreakEven.API.Interfaces.Configuration;
 using BreakEven.API.Interfaces.Repositories;
 using BreakEven.API.Interfaces.Services;
 using BreakEven.API.Repositories;
@@ -21,7 +23,7 @@ builder.Configuration
 var connStr = builder.Configuration.GetConnectionString("AppDbContextConnectionString");
 DbContextOptions options = new DbContextOptionsBuilder()
     .UseMySql(connStr, ServerVersion.AutoDetect(connStr))
-    .Options;  
+    .Options;
 
 using (var dbContext = new AppDbContext(options))
 {
@@ -37,11 +39,12 @@ using (var dbContext = new AppDbContext(options))
     }
 }
 
+builder.Services.AddSingleton<IParameterConfiguration>(new ParameterConfiguration(builder.Configuration));
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IIRRFService, IRRFService>();
 builder.Services.AddScoped<IINSSService, INSSService>();
-builder.Services.AddScoped<IFGTSService,FGTSService>();
+builder.Services.AddScoped<IFGTSService, FGTSService>();
 builder.Services.AddScoped<ITransportationAllowanceService, TransportationAllowanceService>();
 builder.Services.AddScoped<IPaycheckService, PaycheckService>();
 

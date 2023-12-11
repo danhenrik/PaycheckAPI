@@ -1,17 +1,32 @@
+using BreakEven.API.Exceptions;
+using BreakEven.API.Interfaces.Configuration;
 using BreakEven.API.Interfaces.Services;
+using BreakEven.API.Shared;
 
 namespace BreakEven.API.Services;
 
-public class TransportationAllowanceService: ITransportationAllowanceService
+public class TransportationAllowanceService : ITransportationAllowanceService
 {
-    private const double MinimumSalary = 1500.00;
+    private readonly double _minimumSalary;
 
-    private const double _transportationAllowanceDiscountRate = 0.06;
+    private readonly double _transportationAllowanceDiscountRate;
     
+    public TransportationAllowanceService(IParameterConfiguration configuration)
+    {
+        var transportationAllowanceInformation = configuration.GetTransportationAllowanceInformation();
+
+        if (transportationAllowanceInformation == null) 
+            throw new UnspecifiedInformationException(this);
+    
+        _minimumSalary = transportationAllowanceInformation.MinimumSalary;
+        _transportationAllowanceDiscountRate = transportationAllowanceInformation.DiscountRate;
+    }
+
     public double Compute(double grossSalary)
     {
-        if (grossSalary > MinimumSalary)
+        if (grossSalary > _minimumSalary) 
             return grossSalary * _transportationAllowanceDiscountRate;
+
         return 0;
     }
 }
