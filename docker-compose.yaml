@@ -7,6 +7,11 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1
+      interval: 5s
+      timeout: 5s
+      retries: 55
     volumes:
         - ./database:/var/lib/mysql
     ports: 
@@ -28,7 +33,8 @@ services:
       context: src/BreakEven.API
     image: api:v1
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "8080:8080"
     
