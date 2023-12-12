@@ -90,10 +90,10 @@ public class EmployeeControllerTests
     {
 
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Returns(_employee);
 
-        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
+        var  result = _controller.GetById("id", _repoMock.Object);
             
         var response = Assert.IsType<OkObjectResult>(result);
         var employeesRes = Assert.IsType<Employee>(response.Value);
@@ -104,10 +104,10 @@ public class EmployeeControllerTests
     public void GetById_IfEmployeeNotFound_ReturnsError()
     {
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Returns((Employee)null!);
 
-        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
+        var  result = _controller.GetById("id", _repoMock.Object);
             
         Assert.IsType<NotFoundObjectResult>(result);
     }
@@ -116,10 +116,10 @@ public class EmployeeControllerTests
     public void GetById_IfExceptionIsThrown_ReturnsError()
     {
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Throws(new Exception());
 
-        var  result = _controller.GetByCpf("cpf", _repoMock.Object);
+        var  result = _controller.GetById("cpf", _repoMock.Object);
             
         Assert.IsType<StatusCodeResult>(result);
     }
@@ -128,11 +128,12 @@ public class EmployeeControllerTests
     public void Post_IfEmployeeIsCreated_ReturnsOkWithId()
     {
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Returns((Employee)null!);
         _repoMock
             .Setup(repo => repo.Create(It.IsAny<Employee>()))
             .Returns(Task.CompletedTask);
+        
         
         var  result = _controller.Post(_employeeViewModel, _repoMock.Object);
             
@@ -140,8 +141,9 @@ public class EmployeeControllerTests
         var id = obj
             .GetType()
             .GetProperty("Id")
-            .GetValue(obj);
-        Assert.Equal(_employeeViewModel.CPF, id);
+            .GetValue(obj)
+            .ToString();
+        Assert.True(Guid.TryParse(id, out _));
     }
 
     [Fact]
@@ -180,7 +182,7 @@ public class EmployeeControllerTests
     public void GetPaycheck_IfEmployeeFound_ReturnsPaycheck()
     {
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Returns(_employee);
         var paycheck = new Paycheck { GrossSalary = 1000 };
         var paycheckServiceMock = new Mock<IPaycheckService>();
@@ -188,7 +190,7 @@ public class EmployeeControllerTests
             .Setup(x => x.GeneratePaycheck(It.IsAny<Employee>()))
             .Returns(paycheck);
         
-        var result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
+        var result = _controller.GetPaycheck("id", _repoMock.Object, paycheckServiceMock.Object);
 
         var response = Assert.IsType<OkObjectResult>(result);
         var paycheckRes = Assert.IsType<PaycheckViewModel>(response.Value);
@@ -212,11 +214,11 @@ public class EmployeeControllerTests
     public void GetPaycheck_IfExceptionIsThrown_ReturnsError()
     {
         _repoMock
-            .Setup(repo => repo.GetByCpf(It.IsAny<string>()))
+            .Setup(repo => repo.GetById(It.IsAny<string>()))
             .Throws(new Exception());
         var paycheckServiceMock = new Mock<IPaycheckService>();
 
-        var result = _controller.GetPaycheck("cpf", _repoMock.Object, paycheckServiceMock.Object);
+        var result = _controller.GetPaycheck("(Id", _repoMock.Object, paycheckServiceMock.Object);
             
         Assert.IsType<StatusCodeResult>(result);
     }

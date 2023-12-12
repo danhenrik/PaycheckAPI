@@ -29,7 +29,7 @@ public class EmployeeController : ControllerBase
 
     // GET: api/employee/:cpf
     [HttpGet("{id}")]
-    public IActionResult GetByCpf(string id, [FromServices] IEmployeeRepository repo)
+    public IActionResult GetById(string id, [FromServices] IEmployeeRepository repo)
     {
         try
         {
