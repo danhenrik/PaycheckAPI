@@ -1,0 +1,29 @@
+@BreakEven_HostAddress = http://localhost:8080
+
+GET {{BreakEven_HostAddress}}/api/employees
+Accept: application/json
+###
+
+GET {{BreakEven_HostAddress}}/api/employees/d3c7af32-77fc-412d-9b6a-74aa95fe1dca
+Accept: application/json
+###
+
+POST {{BreakEven_HostAddress}}/api/employees
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "surName": "Employee",
+  "cpf": "12345678912",
+  "sector": "Engineering",
+  "grossSalary": 2000,
+  "admissionDate": "2023-12-11T15:00:00.000Z",
+  "hasHealthInsurance": true,
+  "hasDentalInsurance": false,
+  "hasTransportationAllowance": true
+}
+###
+
+GET {{BreakEven_HostAddress}}/api/employees/d3c7af32-77fc-412d-9b6a-74aa95fe1dca/paycheck
+Accept: application/json

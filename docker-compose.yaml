@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: database
+    image: mysql 
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1
+      interval: 5s
+      timeout: 5s
+      retries: 55
+    volumes:
+        - ./database:/var/lib/mysql
+    ports: 
+      - "3306:3306"
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    depends_on: 
+      - db
+    ports:
+      - "5500:8080"
+
+  api:
+    container_name: api
+    build:
+      dockerfile: dockerfile
+      context: src/BreakEven.API
+    image: api:v1
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    
