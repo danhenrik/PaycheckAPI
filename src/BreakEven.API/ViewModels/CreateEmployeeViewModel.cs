@@ -32,10 +32,11 @@ public class CreateEmployeeViewModel
     [Required]
     public bool HasTransportationAllowance { get; init; }
 
-    public Employee ToDomain()
+    public Employee ToDomain(string id)
     {
         return new Employee()
         {
+            Id = id,
             CPF = CPF,
             FirstName = FirstName,
             SurName = SurName,

@@ -28,12 +28,12 @@ public class EmployeeController : ControllerBase
     }
 
     // GET: api/employee/:cpf
-    [HttpGet("{cpf}")]
-    public IActionResult GetByCpf(string cpf, [FromServices] IEmployeeRepository repo)
+    [HttpGet("{id}")]
+    public IActionResult GetByCpf(string id, [FromServices] IEmployeeRepository repo)
     {
         try
         {
-            var employee =  repo.GetByCpf(cpf);
+            var employee =  repo.GetById(id);
             if (employee == null)
                 return NotFound(new { Error = "Employee not found" });
             return Ok(employee);
@@ -46,12 +46,12 @@ public class EmployeeController : ControllerBase
     }
 
     // GET: api/employee/:cpf/paycheck
-    [HttpGet("{cpf}/paycheck")]
-    public IActionResult GetPaycheck(string cpf, [FromServices] IEmployeeRepository repo, [FromServices] IPaycheckService paycheckService)
+    [HttpGet("{id}/paycheck")]
+    public IActionResult GetPaycheck(string id, [FromServices] IEmployeeRepository repo, [FromServices] IPaycheckService paycheckService)
     {
         try
         {
-            var employee =  repo.GetByCpf(cpf);
+            var employee =  repo.GetById(id);
             if (employee == null)
                 return NotFound(new { Error = "Employee not found" });
 
@@ -82,10 +82,11 @@ public class EmployeeController : ControllerBase
             if (dbEmployee != null)
                 return BadRequest(new { Error = "User already exists" });
 
-            var employee = employeeViewModel.ToDomain();
+            var employeeId = Guid.NewGuid().ToString();
+            var employee = employeeViewModel.ToDomain(employeeId);
             repo.Create(employee);
-
-            return Created(nameof(Get), new { Id = employee.CPF });
+            
+            return Created(nameof(Get), new { Id = employeeId });
         }
         catch (NegativeSalaryException e)
         {

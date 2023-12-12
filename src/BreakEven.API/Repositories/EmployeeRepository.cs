@@ -14,6 +14,11 @@ public class EmployeeRepository(AppDbContext db) : IEmployeeRepository
         return db.SaveChangesAsync();
     }
 
+    public Employee? GetById(string id)
+    {
+        return db.Employees.FirstOrDefault(emp => emp!.Id == id);
+    }
+
     public Employee? GetByCpf(string cpf)
     {
         return db.Employees.FirstOrDefault(emp => emp!.CPF == cpf);

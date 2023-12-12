@@ -30,13 +30,13 @@ public class EmployeeValidator : AbstractValidator<CreateEmployeeViewModel>
             .NotEmpty()
             .WithMessage("Please specify admission date");
         RuleFor(emp => emp.HasHealthInsurance)
-            .NotEmpty()
+            .NotNull()
             .WithMessage("Please specify hasHealthInsurance");
         RuleFor(emp => emp.HasDentalInsurance)
-            .NotEmpty()
+            .NotNull()
             .WithMessage("Please specify hasDentalInsurance");
         RuleFor(emp => emp.HasTransportationAllowance)
-            .NotEmpty()
+            .NotNull()
             .WithMessage("Please specify hasTransportationAllowance");
     } 
     private bool BeAValidCPF(string cpf)

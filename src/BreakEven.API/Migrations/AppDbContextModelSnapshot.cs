@@ -21,11 +21,15 @@ namespace BreakEven.API.Migrations
 
             modelBuilder.Entity("BreakEven.API.Entities.Employee", b =>
                 {
-                    b.Property<string>("CPF")
+                    b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("AdmissionDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -51,7 +55,7 @@ namespace BreakEven.API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("CPF");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
                 });

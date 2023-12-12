@@ -5,6 +5,8 @@ namespace BreakEven.API.Entities;
 public class Employee
 {
     [Key]
+    public string Id { get; init; }
+    
     public string CPF { get; init;  }
     
     public string FirstName { get; init; }
